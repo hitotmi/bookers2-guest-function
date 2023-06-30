@@ -1,5 +1,6 @@
-class BooksController < ApplicationController
+# frozen_string_literal: true
 
+class BooksController < ApplicationController
   def show
     @booknew = Book.new
     @book = Book.find(params[:id])
@@ -18,15 +19,15 @@ class BooksController < ApplicationController
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
       @books = Book.all
-      render 'index'
+      render "index"
     end
   end
 
   def edit
     @book = Book.find(params[:id])
-      unless @book.user_id == current_user.id
-       redirect_to books_path
-      end
+    unless @book.user_id == current_user.id
+      redirect_to books_path
+    end
     @book = Book.find(params[:id])
   end
 
@@ -46,8 +47,7 @@ class BooksController < ApplicationController
   end
 
   private
-
-  def book_params
-    params.require(:book).permit(:title, :body)
-  end
+    def book_params
+      params.require(:book).permit(:title, :body)
+    end
 end
